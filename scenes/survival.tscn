@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7opuvg5b4ilj"]
+
+[ext_resource type="PackedScene" uid="uid://845jw1nqgupf" path="res://assets/models/Survival/Survival/Models/Survival.fbx" id="1_fxs5j"]
+
+[node name="Survival" instance=ExtResource("1_fxs5j")]

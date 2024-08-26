@@ -19,7 +19,20 @@ var walk_vel: Vector3 # Walking velocity
 var grav_vel: Vector3 # Gravity velocity 
 var jump_vel: Vector3 # Jumping velocity
 
+var lantern_interact = false
+
 @onready var camera: Camera3D = $Camera3D
+@onready var player_arms: Node3D = $Player_Arms
+
+# Zones
+@onready var zone_1: Area3D = $"../Whisper Zones/Zone1"
+@onready var zone_2: Area3D = $"../Whisper Zones/Zone2"
+@onready var zone_3: Area3D = $"../Whisper Zones/Zone3"
+
+# Lantern
+@onready var lantern: MeshInstance3D = $"../cryptid_camping/Farol"
+
+
 
 func _ready() -> void:
 	capture_mouse()
@@ -30,6 +43,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		if mouse_captured: _rotate_camera()
 	
 	#if Input.is_action_just_pressed("exit"): get_tree().quit()
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("interact") and lantern_interact and lantern.visible:
+		lantern.queue_free()
+		player_arms.visible = true
 
 func _physics_process(delta: float) -> void:
 	velocity = _walk(delta) + _gravity(delta) 
@@ -44,8 +62,11 @@ func release_mouse() -> void:
 	mouse_captured = false
 
 func _rotate_camera(sens_mod: float = 1.0) -> void:
+	
 	camera.rotation.y -= look_dir.x * camera_sens * sens_mod
 	camera.rotation.x = clamp(camera.rotation.x - look_dir.y * camera_sens * sens_mod, -1.5, 1.5)
+	player_arms.rotation.y -= look_dir.x * camera_sens * sens_mod
+
 
 
 func _walk(delta: float) -> Vector3:
@@ -61,25 +82,46 @@ func _gravity(delta: float) -> Vector3:
 
 # tent for sleeping
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	print("Wants to sleep")
+	if body.name == "Player":
+		print("Wants to sleep")
 	pass # Replace with function body.
 
 # dead animal
 func _on_animal_body_body_entered(body: Node3D) -> void:
-	print("Sees dead animal")
+	if body.name == "Player":
+		print("Sees dead animal")
 	pass # Replace with function body.
 
 
 func _on_zone_1_body_entered(body: Node3D) -> void:
-	print("Zone 1 passed, increased whispers")
+	if body.name == "Player":
+		print("Zone 1 passed, increased whispers")
+		zone_1.queue_free()
 	pass # Replace with function body.
 
 
 func _on_zone_2_body_entered(body: Node3D) -> void:
-	print("Zone 2 passed, increased whispers")
+	if body.name == "Player":
+		print("Zone 2 passed, increased whispers")
+		zone_1.queue_free()
 	pass # Replace with function body.
 
 
 func _on_zone_3_body_entered(body: Node3D) -> void:
-	print("Zone 3 passed, stopped whispers")
+	if body.name == "Player":
+		print("Zone 3 passed, stopped whispers")
+		zone_1.queue_free()
 	pass # Replace with function body.
+
+# handle lantern pickup
+func _on_lantern_body_entered(body: Node3D) -> void:
+	if body.name == "Player":
+		print("wants to pick up lantern")
+		lantern_interact = true
+		
+	pass # Replace with function body.
+
+
+func _on_lantern_body_exited(body: Node3D) -> void:
+	if body.name == "Player":
+		lantern_interact = false
