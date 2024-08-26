@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://br2y0rl5i51wl"
+path.s3tc="res://.godot/imported/grass_Grass_texture.png-8aba0f1147b4083885c3ecc0f4bcd26e.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "8ce99af5469b87bb4b7245183a42427b"
+}
+
+[deps]
+
+source_file="res://assets/models/grass/grass_Grass_texture.png"
+dest_files=["res://.godot/imported/grass_Grass_texture.png-8aba0f1147b4083885c3ecc0f4bcd26e.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

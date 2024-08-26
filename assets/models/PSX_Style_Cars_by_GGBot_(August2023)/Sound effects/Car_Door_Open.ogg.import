@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://lrkhpea5ak3x"
+path="res://.godot/imported/Car_Door_Open.ogg-594f69b50bca595164b9de82c54e55bb.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/models/PSX_Style_Cars_by_GGBot_(August2023)/Sound effects/Car_Door_Open.ogg"
+dest_files=["res://.godot/imported/Car_Door_Open.ogg-594f69b50bca595164b9de82c54e55bb.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

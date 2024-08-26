@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dge86npd4e3ft"
+path="res://.godot/imported/Wheel.obj-3b77e96b4ea84608be6c524c09ab882f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Wheel.obj-3b77e96b4ea84608be6c524c09ab882f.mesh"]
+
+source_file="res://assets/models/PSX_Style_Cars_by_GGBot_(August2023)/Wheel/Wheel.obj"
+dest_files=["res://.godot/imported/Wheel.obj-3b77e96b4ea84608be6c524c09ab882f.mesh", "res://.godot/imported/Wheel.obj-3b77e96b4ea84608be6c524c09ab882f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

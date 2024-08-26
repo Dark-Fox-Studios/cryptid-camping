@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdqv2kjnrb5gp"]
+
+[ext_resource type="PackedScene" uid="uid://dsdhtii8k4nxh" path="res://assets/models/deadman.fbx" id="1_irwxw"]
+[ext_resource type="Texture2D" uid="uid://cws4o0fbcnrhd" path="res://assets/models/HoboTexture_dead.png" id="2_tx72t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_238t4"]
+albedo_texture = ExtResource("2_tx72t")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8n5d"]
+albedo_texture = ExtResource("2_tx72t")
+proximity_fade_enabled = true
+distance_fade_mode = 1
+distance_fade_min_distance = 10.0
+distance_fade_max_distance = 0.0
+
+[node name="deadman" instance=ExtResource("1_irwxw")]
+
+[node name="deadman_facedown (2)" parent="World" index="0"]
+transform = Transform3D(-2.19451, 4.32146e-17, -6.64711, 2.68741e-16, 7, -4.32146e-17, 6.64711, -2.68741e-16, -2.19451, 0.117459, 0.0214727, 0.101532)
+
+[node name="Deadman_Verylowpoly" parent="World/deadman_facedown (2)/Skeleton3D" index="0"]
+material_override = SubResource("StandardMaterial3D_238t4")
+surface_material_override/0 = SubResource("StandardMaterial3D_h8n5d")
