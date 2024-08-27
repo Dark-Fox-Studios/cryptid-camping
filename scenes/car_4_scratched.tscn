@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d23ljv8hajb7o"]
+
+[ext_resource type="ArrayMesh" uid="uid://dgfp06bpyfhd8" path="res://assets/models/PSX_Style_Cars_by_GGBot_(August2023)/Car 04/Car4_scratched.obj" id="1_elybp"]
+
+[node name="Car4Scratched" type="MeshInstance3D"]
+transform = Transform3D(-0.36277, 1.41171e-08, -0.428461, 0.0112607, 0.561216, -0.0095342, 0.428313, -0.0147548, -0.362644, 44.8205, -2.29173, -5.81952)
+mesh = ExtResource("1_elybp")

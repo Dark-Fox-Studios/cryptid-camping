@@ -1,15 +1,18 @@
-[gd_scene load_steps=12 format=4 uid="uid://ow7e2wfpafwd"]
+[gd_scene load_steps=21 format=4 uid="uid://ow7e2wfpafwd"]
 
 [ext_resource type="Script" path="res://scripts/character_body_3d.gd" id="1_e456b"]
 [ext_resource type="Environment" uid="uid://bgocnhauri6mq" path="res://assets/main.tres" id="2_3oflg"]
+[ext_resource type="PackedScene" uid="uid://b757stusi0tng" path="res://scenes/Taken Hostage - Villain.fbx" id="2_xghsk"]
 [ext_resource type="AudioStream" uid="uid://bkmh2vkk1u2rr" path="res://assets/audio/Whispers.mp3" id="3_uchdl"]
 [ext_resource type="PackedScene" uid="uid://j8nmypklop5v" path="res://scenes/Player_Arms.tscn" id="4_1rkan"]
 [ext_resource type="Texture2D" uid="uid://brhuusy0uaxqd" path="res://assets/models/Survival/Survival/Textures/farol.png" id="5_jcddt"]
+[ext_resource type="AudioStream" uid="uid://c6a3du1k0okv2" path="res://assets/audio/670841__silverillusionist__horror-sting-eyes-in-the-dark-2.wav" id="7_y7yxg"]
+[ext_resource type="AudioStream" uid="uid://dr1g3m3qcuaws" path="res://assets/audio/footstep1.mp3" id="8_pmcy7"]
+[ext_resource type="AudioStream" uid="uid://djmh101nlquw5" path="res://assets/audio/footstep2.mp3" id="9_0vcut"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyisx"]
 resource_name = "farol"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("5_jcddt")
 emission_enabled = true
 
@@ -81,12 +84,169 @@ shadow_mesh = SubResource("ArrayMesh_0dn00")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yxpbs"]
 
+[sub_resource type="Animation" id="Animation_ip2ib"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8i8rd"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0.984314, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_a4v0w"]
+resource_name = "sleep"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ytl6h"]
+resource_name = "wake"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bgg81"]
+_data = {
+"RESET": SubResource("Animation_ip2ib"),
+"death": SubResource("Animation_8i8rd"),
+"sleep": SubResource("Animation_a4v0w"),
+"wake": SubResource("Animation_ytl6h")
+}
+
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_e456b")
-speed = 1.0
+walk_speed = 2.0
 acceleration = 50.0
-camera_sens = 0.7
+
+[node name="Taken Hostage - Villain" parent="." instance=ExtResource("2_xghsk")]
+transform = Transform3D(-3, 0, -4.52987e-07, 0, 3, 0, 4.52987e-07, 0, -3, -0.162296, -1.43166, 1.5198)
+
+[node name="Skeleton3D" parent="Taken Hostage - Villain" index="0"]
+bones/0/position = Vector3(0.00643607, 0.569443, -0.00385706)
+bones/0/rotation = Quaternion(-0.0151834, -0.347051, -0.0132685, 0.937629)
+bones/1/rotation = Quaternion(0.0109581, 0.00375804, 0.0325942, 0.999402)
+bones/2/rotation = Quaternion(0.0127767, 0.000503527, 0.011938, 0.999847)
+bones/3/rotation = Quaternion(0.0127818, 0.000767941, 0.0119177, 0.999847)
+bones/4/rotation = Quaternion(0.0105832, 0.0201258, 0.0286812, 0.99933)
+bones/5/rotation = Quaternion(0.138078, 0.154606, -0.0315305, 0.977772)
+bones/7/rotation = Quaternion(-0.559753, -0.435801, 0.574082, -0.408881)
+bones/8/rotation = Quaternion(0.66224, -0.0369511, -0.00355526, 0.748372)
+bones/9/rotation = Quaternion(0.00919196, 0.0741968, 0.222211, 0.972128)
+bones/10/rotation = Quaternion(-0.0737075, 0.937932, -0.0823409, -0.328742)
+bones/11/rotation = Quaternion(-0.16325, -0.045943, -0.232346, 0.957734)
+bones/12/rotation = Quaternion(0.0209548, 0.0147141, 0.139082, 0.98995)
+bones/13/rotation = Quaternion(0.132602, 0.0220825, -0.0817814, 0.987543)
+bones/15/rotation = Quaternion(0.0110179, 0.02915, -0.0558783, 0.997951)
+bones/16/rotation = Quaternion(-0.263377, -0.0111117, -0.0172103, 0.964475)
+bones/17/rotation = Quaternion(-0.267052, 0.001775, 0.0415735, 0.962784)
+bones/19/rotation = Quaternion(0.54804, -0.477994, 0.504242, 0.46574)
+bones/20/rotation = Quaternion(0.584636, -0.177755, -0.112198, 0.783592)
+bones/21/rotation = Quaternion(0.046132, -0.231224, -0.762225, 0.602843)
+bones/22/rotation = Quaternion(-0.0125105, 0.988986, -0.0189296, -0.146256)
+bones/23/rotation = Quaternion(-0.454324, -0.0828263, 0.122555, 0.87847)
+bones/24/rotation = Quaternion(0.277464, -0.0454566, -0.269333, 0.92109)
+bones/25/rotation = Quaternion(0.295497, 0.20397, -0.418576, 0.83419)
+bones/27/rotation = Quaternion(-0.174525, -0.0115659, 0.00427243, 0.984576)
+bones/28/rotation = Quaternion(-0.500621, -0.031697, -0.0285414, 0.864615)
+bones/29/rotation = Quaternion(-0.594286, 0.0024458, 0.0607055, 0.801956)
+bones/31/rotation = Quaternion(0.0575542, 0.159468, 0.977337, -0.126765)
+bones/32/rotation = Quaternion(-0.183238, -0.0786793, -0.016133, 0.979782)
+bones/33/rotation = Quaternion(0.358322, -0.0244892, -0.00488745, 0.933264)
+bones/34/rotation = Quaternion(0.326564, 0.0367723, -0.0127158, 0.944374)
+bones/36/rotation = Quaternion(-0.116214, 0.0561784, 0.991399, 0.0215771)
+bones/37/rotation = Quaternion(-0.267034, -0.0159104, 0.0275448, 0.963162)
+bones/38/rotation = Quaternion(0.567261, -0.0341005, -0.0875205, 0.818164)
+bones/39/rotation = Quaternion(0.306303, -0.0392778, 0.0126501, 0.951039)
 
 [node name="Player_Arms" parent="." instance=ExtResource("4_1rkan")]
 transform = Transform3D(-0.564615, 0, -1.17099, 0, 1.3, 0, 1.17099, 0, -0.564615, 0, 0.356, 0)
@@ -102,23 +262,79 @@ transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 
 mesh = SubResource("ArrayMesh_ny5rh")
 skeleton = NodePath("")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="Player_Arms/Farol"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00178959)
+omni_range = 25.08
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.545905, 0)
 environment = ExtResource("2_3oflg")
-current = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_yxpbs")
 
 [node name="Whispers" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_uchdl")
-volume_db = -56.771
+max_db = 5.308
 panning_strength = 0.0
 bus = &"Whispers"
 parameters/looping = true
+
+[node name="Death" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_y7yxg")
+
+[node name="Footstep1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_pmcy7")
+
+[node name="Footstep2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_0vcut")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0183308, 6.53521, -0.0122023)
 spot_range = 10.534
 spot_attenuation = 0.63
 spot_angle = 27.01
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="InteractLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.982
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -48.3361
+offset_right = 20.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(0, 0, 0, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
+[node name="EffectAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bgg81")
+}
+
+[editable path="Taken Hostage - Villain"]
