@@ -1,0 +1,223 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8gvlvlv0o0bo"]
+
+[ext_resource type="SystemFont" uid="uid://bwf1cqn53d52q" path="res://font.tres" id="1_h0res"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_es4os"]
+content_margin_left = 185.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_w8hxa"]
+font = ExtResource("1_h0res")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_malyu"]
+font = ExtResource("1_h0res")
+
+[sub_resource type="LabelSettings" id="LabelSettings_my81n"]
+font = ExtResource("1_h0res")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_es4os")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+text = "
+
+
+
+
+
+Cryptid Camping - Demo"
+label_settings = SubResource("LabelSettings_w8hxa")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "
+
+
+
+
+
+
+Made for the Scream Secrets Game Jam on Itch.io
+
+Theme: \"It's Been There All Along\"
+
+
+
+
+
+
+
+
+|=== Produced by ===|
+
+Dark Fox Studio
+
+
+
+|=== Story ===|
+
+Jo Chaney
+Jordan Rautio
+Noah Chaney
+
+
+
+|=== Programmers ===|
+
+Noah Chaney
+
+
+
+|=== 2D Artists ===|
+
+Jo Chaney 
+Jordan Rautio
+
+
+
+|=== 3D Artists ===|
+
+Noah Chaney
+Jordan Rautio
+
+
+
+|=== Environment Design ===|
+
+Noah Chaney
+Jo Chaney
+Jordan Rautio
+
+
+
+|=== Audio ===|
+
+Noah Chaney
+
+
+
+
+
+
+
+
+|=== Assets ===|
+
+MODELS:
+Terrain by Noah Chaney
+Ranger Tower by Jordan Rautio
+Modified PSX Style Car by Noah Chaney (modified original from GGBotNet)
+Grass Model by Noah Chaney
+\"Deadman psx\" by liltoba (https://skfb.ly/o8Exq)
+Deer model by https://free-game-assets.itch.io/free-wild-animal-3d-low-poly-models
+PSX Style Cars by GGBotNet (https://ggbot.itch.io/psx-style-cars)
+Retro PSX Style Tree Pack by Elegant Crow (https://elegantcrow.itch.io/psx-retro-style-tree-pack)
+Survival by Elbolilloduro (https://elbolilloduro.itch.io/survival-psx)
+PSX Elk Demon by Retro Spud (https://retro-spud.itch.io/psx-elk-demon-npc-monster)
+Animation: Taken Hostage - Villain from Adobe Mixamo
+
+
+
+
+
+
+AUDIO:
+Scream by Jordan Rautio
+Whispers by Noah Chaney
+\"Run\" by Noah Chaney
+Tires rolling on Gravel by Hush Angel (https://www.youtube.com/watch?v=5_ll_ZQhm08)
+Car Driving Sound Effect by Yuarei (https://www.youtube.com/watch?v=cxMmWIykFd8)
+Right Behind You by FesliyanStudios.com
+Horror Sting by SilverIllusionist
+
+
+
+
+
+
+TEXTURES:
+Grass by Jordan Rautio
+Blood decal by Jo Chaney
+Moon by Saroman (https://opengameart.org/content/moon)
+Night Sky Stars and Galaxies by Fupi (https://opengameart.org/content/night-sky-stars-and-galaxies)
+Grass and Stone by West (https://opengameart.org/content/wall-grass-rock-stone-wood-and-dirt-480)
+Gravel by prolific (https://opengameart.org/content/surface-pack-ground1jpg)
+
+
+
+
+
+
+|=== Software Used ===|
+Godot 4.3
+Blender 4.2
+Resprite
+Audacity
+Procreate
+
+
+
+
+
+
+
+
+"
+label_settings = SubResource("LabelSettings_malyu")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Thank you for playing our game!
+
+
+
+
+
+
+
+
+
+
+
+"
+label_settings = SubResource("LabelSettings_my81n")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 987.0
+offset_top = 604.0
+offset_right = 1136.0
+offset_bottom = 634.0
+text = "Return to Menu"

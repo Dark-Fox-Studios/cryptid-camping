@@ -1,0 +1,4 @@
+[gd_resource type="SystemFont" format=3 uid="uid://bwf1cqn53d52q"]
+
+[resource]
+font_names = PackedStringArray("MingLiU_HKSCS-ExtB")

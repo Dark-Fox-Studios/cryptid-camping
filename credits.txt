@@ -1,1 +1,75 @@
+Cryptid Camping - Demo
+
+
+
+Made for the Scream Secrets Game Jam on Itch.io
+
+Theme: "It's Been There All Along"
+
+
+
+|=== Produced by ===|
+Dark Fox Studio
+
+|=== Story ===|
+Jo Chaney
+Jordan Rautio
+Noah Chaney
+
+|=== Programmers ===|
+Noah Chaney
+
+|=== 2D Artists ===|
+Jo Chaney 
+Jordan Rautio
+
+|=== 3D Artists ===|
+Noah Chaney
+Jordan Rautio
+
+|=== Environment Design ===|
+Noah Chaney
+Jo Chaney
+Jordan Rautio
+
+|=== Audio ===|
+Noah Chaney
+
+|=== Assets ===|
+
+MODELS:
+Terrain by Noah Chaney
+Ranger Tower by Jordan Rautio
+Modified PSX Style Car by Noah Chaney (modified original from GGBotNet)
+Grass Model by Noah Chaney
 "Deadman psx" (https://skfb.ly/o8Exq) by liltoba is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+Deer model by https://free-game-assets.itch.io/free-wild-animal-3d-low-poly-models
+PSX Style Cars by GGBotNet (https://ggbot.itch.io/psx-style-cars)
+Retro PSX Style Tree Pack by Elegant Crow (https://elegantcrow.itch.io/psx-retro-style-tree-pack)
+Survival by Elbolilloduro (https://elbolilloduro.itch.io/survival-psx)
+PSX Elk Demon by Retro Spud (https://retro-spud.itch.io/psx-elk-demon-npc-monster)
+Animation: Taken Hostage - Villain from Adobe Mixamo
+
+AUDIO:
+Scream by Jordan Rautio
+Whispers by Noah Chaney
+"Run" by Noah Chaney
+Tires rolling on Gravel by Hush Angel (https://www.youtube.com/watch?v=5_ll_ZQhm08)
+Car Driving Sound Effect by Yuarei (https://www.youtube.com/watch?v=cxMmWIykFd8)
+Right Behind You by FesliyanStudios.com
+Horror Sting by SilverIllusionist
+
+TEXTURES:
+Grass by Jordan Rautio
+Blood decal by Jo Chaney
+Moon by Saroman (https://opengameart.org/content/moon)
+Night Sky Stars and Galaxies by Fupi (https://opengameart.org/content/night-sky-stars-and-galaxies)
+Grass and Stone by West (https://opengameart.org/content/wall-grass-rock-stone-wood-and-dirt-480)
+Gravel by prolific (https://opengameart.org/content/surface-pack-ground1jpg)
+
+|=== Software Used ===|
+Godot 4.3
+Blender 4.2
+Resprite
+Audacity
+Procreate
