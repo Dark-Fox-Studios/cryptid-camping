@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://ow7e2wfpafwd"]
+[gd_scene load_steps=24 format=4 uid="uid://ow7e2wfpafwd"]
 
 [ext_resource type="Script" path="res://scripts/character_body_3d.gd" id="1_e456b"]
 [ext_resource type="Environment" uid="uid://bgocnhauri6mq" path="res://assets/main.tres" id="2_3oflg"]
@@ -6,6 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://bkmh2vkk1u2rr" path="res://assets/audio/Whispers.mp3" id="3_uchdl"]
 [ext_resource type="PackedScene" uid="uid://j8nmypklop5v" path="res://scenes/Player_Arms.tscn" id="4_1rkan"]
 [ext_resource type="Texture2D" uid="uid://brhuusy0uaxqd" path="res://assets/models/Survival/Survival/Textures/farol.png" id="5_jcddt"]
+[ext_resource type="AudioStream" uid="uid://bfj7af882jkmu" path="res://assets/audio/2022-10-10_-_Right_Behind_You_-_www.FesliyanStudios.com.mp3" id="6_8gbw0"]
+[ext_resource type="AudioStream" uid="uid://dfl1cit34vt5u" path="res://assets/audio/run.mp3" id="6_gxnla"]
 [ext_resource type="AudioStream" uid="uid://c6a3du1k0okv2" path="res://assets/audio/670841__silverillusionist__horror-sting-eyes-in-the-dark-2.wav" id="7_y7yxg"]
 [ext_resource type="AudioStream" uid="uid://dr1g3m3qcuaws" path="res://assets/audio/footstep1.mp3" id="8_pmcy7"]
 [ext_resource type="AudioStream" uid="uid://djmh101nlquw5" path="res://assets/audio/footstep2.mp3" id="9_0vcut"]
@@ -194,9 +196,50 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_0a6pn"]
+resource_name = "camp_setup"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bgg81"]
 _data = {
 "RESET": SubResource("Animation_ip2ib"),
+"camp_setup": SubResource("Animation_0a6pn"),
 "death": SubResource("Animation_8i8rd"),
 "sleep": SubResource("Animation_a4v0w"),
 "wake": SubResource("Animation_ytl6h")
@@ -206,6 +249,7 @@ _data = {
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_e456b")
 walk_speed = 2.0
+sprint_speed = 3.0
 acceleration = 50.0
 
 [node name="Taken Hostage - Villain" parent="." instance=ExtResource("2_xghsk")]
@@ -272,6 +316,16 @@ environment = ExtResource("2_3oflg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_yxpbs")
+
+[node name="ChaseMusic" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.93511e-08, 0.79359, 0.793284)
+stream = ExtResource("6_8gbw0")
+
+[node name="Run" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.93511e-08, 0.79359, 0.793284)
+stream = ExtResource("6_gxnla")
+pitch_scale = 0.8
+panning_strength = 3.0
 
 [node name="Whispers" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_uchdl")

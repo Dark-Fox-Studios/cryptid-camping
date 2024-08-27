@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://jjadnuqlfv43"]
+
+[ext_resource type="Texture2D" uid="uid://bjlsluygyp83d" path="res://assets/textures/menu_background.png" id="1_qfhwt"]
+
+[sub_resource type="SystemFont" id="SystemFont_1r6rl"]
+font_names = PackedStringArray("MingLiU_HKSCS-ExtB")
+
+[sub_resource type="LabelSettings" id="LabelSettings_yy741"]
+font = SubResource("SystemFont_1r6rl")
+font_size = 35
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -587.0
+offset_top = -334.0
+offset_right = 588.0
+offset_bottom = 332.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_qfhwt")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.666
+anchor_top = 0.5
+anchor_right = 0.7
+anchor_bottom = 0.5
+offset_left = -56.832
+offset_top = -96.5
+offset_right = 154.0
+offset_bottom = 96.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="CheckButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Start Game"
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Exit Game"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 234.0
+offset_top = 166.0
+offset_right = 638.0
+offset_bottom = 227.0
+text = "Cryptid Camping"
+label_settings = SubResource("LabelSettings_yy741")
+horizontal_alignment = 1
+vertical_alignment = 1

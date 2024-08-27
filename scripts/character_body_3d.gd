@@ -26,6 +26,10 @@ var lantern_interact = false
 var sleep = false
 var whispers_started = false
 
+var camp_setup_trigger = false
+@onready var camp_setup: Area3D = $"../cryptid_camping/Campsite/bonfire/CampSetup"
+
+
 @onready var effect_anim = $EffectAnim
 
 @onready var camera: Camera3D = $Camera3D
@@ -56,8 +60,14 @@ var whispers_started = false
 @onready var ambient_noise = $"../AudioStreamers/AmbientNoise"
 @onready var footstep1 = $Footstep1
 @onready var footstep2 = $Footstep2
+@onready var campsite: Node3D = $"../cryptid_camping/Campsite"
+@onready var sun: DirectionalLight3D = $"../DirectionalLight3D"
+@onready var run: AudioStreamPlayer3D = $Run
+@onready var chase_music: AudioStreamPlayer3D = $ChaseMusic
 
-var bus_index: int
+
+var whisper_bus_index: int
+var ambient_bus_index: int
 
 var step_toggle = false
 
@@ -66,7 +76,9 @@ var target_time = 0.7
 
 func _ready() -> void:
 	set_process_input(false)
-	bus_index = AudioServer.get_bus_index(whispers.bus)
+	whisper_bus_index = AudioServer.get_bus_index(whispers.bus)
+	ambient_bus_index = AudioServer.get_bus_index(ambient_noise.bus)
+	
 	speed = walk_speed
 	color_rect.visible = false
 	capture_mouse()
@@ -93,18 +105,26 @@ func _process(delta: float) -> void:
 			stamina -= delta 
 		
 	if not whispers_started and Main.whispers:
-		
 		whispers.play()
 		whispers_started = true
 		
-	if Input.is_action_just_pressed("ui_accept"):
-		set_process_input(false)
+	if camp_setup_trigger and Input.is_action_just_pressed("interact"):
+		camp_setup.queue_free()
+		effect_anim.play("camp_setup")
+		await get_tree().create_timer(2).timeout
+		label.text = ""
+		for child in campsite.get_children():
+			child.visible = true
+		await get_tree().create_timer(2).timeout
+		camp_setup_trigger = false
+		Main.section += 1
+		dialogue.text = "Time for bed, I'm tired..."
+		await get_tree().create_timer(2).timeout
+		dialogue.text = ""
 		
-		death_animation.play("mixamo_com")
-		await get_tree().create_timer(1).timeout
-		death.play()
-		await get_tree().create_timer(1.7).timeout
-		effect_anim.play("death")
+		
+
+		
 
 		
 	if Input.is_action_just_pressed("interact") and lantern_interact and lantern.visible:
@@ -118,6 +138,7 @@ func _process(delta: float) -> void:
 		Main.sleepable = false
 		label.text = ""
 		effect_anim.play("sleep")
+		sun.light_energy = 0.1
 		await get_tree().create_timer(5).timeout
 		dead_audio.play()
 		await get_tree().create_timer(2).timeout
@@ -129,8 +150,8 @@ func _process(delta: float) -> void:
 		await get_tree().create_timer(2).timeout
 		dialogue.text = ""
 		await get_tree().create_timer(0.2).timeout
-		dialogue.text = "* Go investigate the source of the scream"
-		await get_tree().create_timer(2).timeout
+		dialogue.text = "* Go investigate the source of the scream. You should probably grab a lantern *"
+		await get_tree().create_timer(4).timeout
 		dialogue.text = ""
 
 		
@@ -148,6 +169,15 @@ func _physics_process(delta: float) -> void:
 			elapsed_time = 0
 		
 	move_and_slide()
+
+func kill():
+	set_process_input(false)
+	death_animation.play("mixamo_com")
+	await get_tree().create_timer(1).timeout
+	death.play()
+	await get_tree().create_timer(1.7).timeout
+	effect_anim.play("death")
+
 
 func capture_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -186,23 +216,26 @@ func _on_area_3d_body_exited(body):
 		label.text = ""
 
 
-
 func _on_zone_1_body_entered(body: Node3D) -> void:
 	if body.name == "Player":
-		var current_db = AudioServer.get_bus_volume_db(bus_index)
-		AudioServer.set_bus_volume_db(bus_index, current_db + 6.0)
+		var current_w_db = AudioServer.get_bus_volume_db(whisper_bus_index)
+		AudioServer.set_bus_volume_db(whisper_bus_index, current_w_db + 7.0)
+		var current_a_db = AudioServer.get_bus_volume_db(ambient_bus_index)
+		AudioServer.set_bus_volume_db(ambient_bus_index, current_a_db + 5.0)
 		print("Zone 1 passed, increased whispers")
 		zone_1.queue_free()
-	pass # Replace with function body.
+
 
 
 func _on_zone_2_body_entered(body: Node3D) -> void:
 	if body.name == "Player":
-		var current_db = AudioServer.get_bus_volume_db(bus_index)
-		AudioServer.set_bus_volume_db(bus_index, current_db + 6.0)
+		var current_w_db = AudioServer.get_bus_volume_db(whisper_bus_index)
+		AudioServer.set_bus_volume_db(whisper_bus_index, current_w_db + 7.0)
+		var current_a_db = AudioServer.get_bus_volume_db(ambient_bus_index)
+		AudioServer.set_bus_volume_db(ambient_bus_index, current_a_db + 5.0)
 		print("Zone 2 passed, increased whispers")
 		zone_2.queue_free()
-	pass # Replace with function body.
+
 
 
 func _on_zone_3_body_entered(body: Node3D) -> void:
@@ -211,8 +244,15 @@ func _on_zone_3_body_entered(body: Node3D) -> void:
 		ambient_noise.stop()
 		print("Zone 3 passed, stopped whispers")
 		zone_3.queue_free()
-	pass # Replace with function body.
-
+		await get_tree().create_timer(5).timeout
+		run.play()
+		await get_tree().create_timer(1).timeout
+		chase_music.play()
+		await get_tree().create_timer(10).timeout
+		kill()
+		await get_tree().create_timer(1).timeout
+		chase_music.stop()
+		
 # handle lantern pickup
 func _on_lantern_body_entered(body: Node3D) -> void:
 	if body.name == "Player" and Main.lantern_interactable:
@@ -230,7 +270,7 @@ func _on_lantern_body_exited(body: Node3D) -> void:
 
 func _on_cutscene_animation_finished(anim_name):
 	set_process_input(true)
-	dialogue.text = "I really should get to bed... it's late"
+	dialogue.text = "I really should set up camp... it's late"
 	await get_tree().create_timer(3).timeout
 	dialogue.text = ""
 
@@ -243,3 +283,21 @@ func _on_scratched_van_body_entered(body):
 		await get_tree().create_timer(3).timeout
 		dialogue.text = ""
 	
+
+
+func _on_camp_setup_body_entered(body: Node3D) -> void:
+	if body.name == "Player":
+		label.text = "Setup camp"
+		camp_setup_trigger = true
+		
+
+
+func _on_camp_setup_body_exited(body: Node3D) -> void:
+	label.text = "Setup camp"
+
+
+func _on_death_boundary_body_entered(body: Node3D) -> void:
+	if body.name == "Player":
+		kill()
+		await get_tree().create_timer(.7).timeout
+		chase_music.stop()

@@ -22,6 +22,10 @@ class_name Main
 @onready var right_light = $SubViewportContainer/SubViewport/Car4Scratched/SpotLight3D2
 @onready var right_bulb = $SubViewportContainer/SubViewport/Car4Scratched/SpotLight3D2/MeshInstance3D2
 
+@onready var decal: Decal = $SubViewportContainer/SubViewport/cryptid_camping/Plane/Decal
+
+
+
 static var section = 0
 static var sleepable = false
 static var lantern_interactable = false
@@ -31,6 +35,7 @@ var rotation_speed: float = 3.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	decal.visible = false
 	scratched_van_col.disabled = true
 	player.visible = false
 	car_scratched.visible = false
@@ -52,9 +57,6 @@ func _process(delta: float) -> void:
 	deer.rotation.y = lerp_angle(deer.rotation.y, -target_rotation, rotation_speed * delta)
 	# getting out of van and making campsite appear
 	if section == 1:
-		print(str(section))
-		for child in campsite.get_children():
-			child.visible = true
 		section += 1
 		
 	# allowing for sleeping in tent. camp gets closed in
@@ -65,6 +67,7 @@ func _process(delta: float) -> void:
 	# investigate scream
 	if section == 3:
 		print(str(section))
+		decal.visible = true
 		if camp_boundary:
 			camp_boundary.queue_free()
 			camp_boundary = null
@@ -80,6 +83,7 @@ func _process(delta: float) -> void:
 		
 		parked_van_clean.visible = false
 		car_scratched.visible = true
+		deer.visible = false
 		scratched_van_col.disabled = false
 		time_passed += delta
 		if time_passed >= interval:
@@ -101,10 +105,17 @@ func toggle_lights():
 
 func _on_animal_body_body_entered(body: Node3D) -> void:
 	if body.name == "Player":
-		print("sees dead body")
-		car_alarm.play()
 		animal_body.queue_free()
+		player.dialogue.text = "They're dead... What the fuck is going on?"
+		await get_tree().create_timer(3).timeout
+		car_alarm.play()
 		section += 1
+		await get_tree().create_timer(1).timeout
+		player.dialogue.text = "Is that my van??"
+		await get_tree().create_timer(2).timeout
+		player.dialogue.text = "* Investigate van *"
+		await get_tree().create_timer(3).timeout
+		player.dialogue.text = ""
 	pass # Replace with function body.
 
 func _on_animation_player_animation_finished(anim_name):
@@ -113,9 +124,7 @@ func _on_animation_player_animation_finished(anim_name):
 	cutscene_van.visible = false
 	parked_van_clean.visible = true
 	player.visible = true
-	section += 1
-
-
+	
 func _on_scratched_van_body_entered(body):
 	if body.name == "Player":
 		print("sees car")
