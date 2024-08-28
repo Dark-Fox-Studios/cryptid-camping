@@ -69,4 +69,5 @@ void fragment() {
 	} else {
 		COLOR.rgb = raw.rgb;
 	}
+	
 }

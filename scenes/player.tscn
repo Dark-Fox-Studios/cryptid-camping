@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://ow7e2wfpafwd"]
+[gd_scene load_steps=27 format=4 uid="uid://ow7e2wfpafwd"]
 
 [ext_resource type="Script" path="res://scripts/character_body_3d.gd" id="1_e456b"]
 [ext_resource type="Environment" uid="uid://bgocnhauri6mq" path="res://assets/main.tres" id="2_3oflg"]
@@ -245,8 +245,201 @@ _data = {
 "wake": SubResource("Animation_ytl6h")
 }
 
+[sub_resource type="Animation" id="Animation_5ud3s"]
+resource_name = "final_death"
+length = 3.993
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Taken Hostage - Villain:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.6, 0.9, 3.68125),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.6671, -4.12039e-08, 1.18916e-07), Vector3(-0.947103, -1.07542e-07, 2.09862e-07), Vector3(-1.51585, -2.59862e-06, 2.74547e-06), Vector3(-1.51585, -2.59862e-06, 2.74547e-06)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.6, 0.9, 3.66667, 3.68125),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(4.57781e-09, 0.0585157, 0.0303175), Vector3(-1.31944e-08, -0.068422, -0.0873823), Vector3(-2.83105e-08, -0.469009, -0.187492), Vector3(1.62119e-06, -0.469009, 10.7367), Vector3(3.26228e-06, -0.469009, 21.6051)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.6, 0.9, 1.23333, 3.66667, 3.68125),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.6671, -4.12039e-08, 1.18916e-07), Vector3(-0.947103, -1.07542e-07, 2.09862e-07), Vector3(-1.39597, -3.10305e-07, 5.82181e-07), Vector3(-0.0348015, 7.07082e-08, 1.30706e-07), Vector3(-0.0348015, 7.07082e-08, 1.30706e-07), Vector3(-0.0348015, 7.07082e-08, 1.30706e-07)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Camera3D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.6, 0.9, 3.66667, 3.68125),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.545905, 0), Vector3(-4.64221e-08, 0.487389, -0.307439), Vector3(-8.01045e-08, 0.250407, -0.530508), Vector3(-1.10616e-07, -0.43903, -0.732573), Vector3(1.53889e-06, -0.43903, 10.1916), Vector3(3.17997e-06, -0.43903, 21.06)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1.23333, 3.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Death:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("ChaseMusic:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_j0c5y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(4.57781e-09, 0.0585157, 0.0303175)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.6671, -4.12039e-08, 1.18916e-07)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.6671, -4.12039e-08, 1.18916e-07)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-4.64221e-08, 0.487389, -0.307439)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uyugv"]
+_data = {
+"RESET": SubResource("Animation_j0c5y"),
+"final_death": SubResource("Animation_5ud3s")
+}
+
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
 script = ExtResource("1_e456b")
 walk_speed = 2.0
 sprint_speed = 3.0
@@ -254,6 +447,7 @@ acceleration = 50.0
 
 [node name="Taken Hostage - Villain" parent="." instance=ExtResource("2_xghsk")]
 transform = Transform3D(-3, 0, -4.52987e-07, 0, 3, 0, 4.52987e-07, 0, -3, -0.162296, -1.43166, 1.5198)
+visible = false
 
 [node name="Skeleton3D" parent="Taken Hostage - Villain" index="0"]
 bones/0/position = Vector3(0.00643607, 0.569443, -0.00385706)
@@ -311,10 +505,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00178959)
 omni_range = 25.08
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.545905, 0)
+transform = Transform3D(1, -9.34226e-08, -3.23706e-08, 9.34226e-08, 0.785619, 0.61871, -3.23706e-08, -0.61871, 0.785619, -4.64221e-08, 0.487389, -0.307439)
 environment = ExtResource("2_3oflg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, -9.34226e-08, -3.23706e-08, 9.34226e-08, 0.785619, 0.61871, -3.23706e-08, -0.61871, 0.785619, 4.57781e-09, 0.0585157, 0.0303175)
 shape = SubResource("CapsuleShape3D_yxpbs")
 
 [node name="ChaseMusic" type="AudioStreamPlayer3D" parent="."]
@@ -390,5 +585,12 @@ color = Color(1, 0, 0, 1)
 libraries = {
 "": SubResource("AnimationLibrary_bgg81")
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uyugv")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_final_death_animation_finished"]
 
 [editable path="Taken Hostage - Villain"]

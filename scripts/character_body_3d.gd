@@ -52,7 +52,7 @@ var camp_setup_trigger = false
 @onready var label = $CanvasLayer/InteractLabel
 @onready var dialogue = $CanvasLayer/DialogueLabel
 @onready var color_rect = $CanvasLayer/ColorRect
-
+@onready var animation_player = $AnimationPlayer
 @onready var death_animation = $"Taken Hostage - Villain/AnimationPlayer"
 @onready var demon = $"Taken Hostage - Villain"
 @onready var animal_body = $"../AnimalBody"
@@ -91,6 +91,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	#if Input.is_action_just_pressed("exit"): get_tree().quit()
 
 func _process(delta: float) -> void:
+	if Input.is_action_pressed("ui_accept"):
+		animation_player.play("final_death")
+	
 	if Input.is_action_just_released("sprint"):
 		speed = walk_speed
 	
@@ -178,6 +181,8 @@ func kill():
 	await get_tree().create_timer(1.7).timeout
 	effect_anim.play("death")
 
+func final_death():
+	animation_player.play("final_death")
 
 func capture_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -301,3 +306,8 @@ func _on_death_boundary_body_entered(body: Node3D) -> void:
 		kill()
 		await get_tree().create_timer(.7).timeout
 		chase_music.stop()
+
+
+func _on_final_death_animation_finished(anim_name):
+	Global.credits_from_final_death = true
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

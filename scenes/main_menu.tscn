@@ -1,6 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://jjadnuqlfv43"]
+[gd_scene load_steps=13 format=3 uid="uid://jjadnuqlfv43"]
 
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_gyrnq"]
 [ext_resource type="Texture2D" uid="uid://bjlsluygyp83d" path="res://assets/textures/menu_background.png" id="1_qfhwt"]
+[ext_resource type="Material" uid="uid://crblqxfb7ealw" path="res://scenes/main_menu.material" id="1_vvblq"]
+[ext_resource type="PackedScene" uid="uid://b8gvlvlv0o0bo" path="res://scenes/credits.tscn" id="4_g6od3"]
+[ext_resource type="Texture2D" uid="uid://db2a0ndieo3t2" path="res://assets/textures/Dark Fox Studios.png" id="5_i0il2"]
+[ext_resource type="AudioStream" uid="uid://cyq1nms50p05r" path="res://assets/audio/mysterious-and-mystic-116127.mp3" id="6_4ve4j"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_g0f2b"]
 
 [sub_resource type="SystemFont" id="SystemFont_1r6rl"]
 font_names = PackedStringArray("MingLiU_HKSCS-ExtB")
@@ -9,6 +16,91 @@ font_names = PackedStringArray("MingLiU_HKSCS-ExtB")
 font = SubResource("SystemFont_1r6rl")
 font_size = 35
 
+[sub_resource type="Animation" id="Animation_7dwek"]
+resource_name = "splash"
+length = 13.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.03333, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ColorRect/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4, 5.03333, 10.1, 12.0333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ColorRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 13),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_kglkf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ColorRect/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ColorRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3lgue"]
+_data = {
+"RESET": SubResource("Animation_kglkf"),
+"splash": SubResource("Animation_7dwek")
+}
+
 [node name="Main Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -16,58 +108,140 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_gyrnq")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Container" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -587.0
-offset_top = -334.0
-offset_right = 588.0
-offset_bottom = 332.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.16481, 1.16481)
 texture = ExtResource("1_qfhwt")
-expand_mode = 1
+expand_mode = 3
 stretch_mode = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VHSRect" type="TextureRect" parent="Container"]
+material = ExtResource("1_vvblq")
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.666
-anchor_top = 0.5
-anchor_right = 0.7
-anchor_bottom = 0.5
-offset_left = -56.832
-offset_top = -96.5
-offset_right = 154.0
-offset_bottom = 96.5
-grow_horizontal = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_g0f2b")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_mode = 2
+anchor_right = 0.04
+anchor_bottom = 0.043
+offset_left = 699.0
+offset_top = 248.0
+offset_right = 902.92
+offset_bottom = 413.136
 theme_override_constants/separation = 50
 
-[node name="CheckButton" type="Button" parent="VBoxContainer"]
+[node name="Start" type="Button" parent="Container/VBoxContainer"]
 layout_mode = 2
 text = "Start Game"
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Credits" type="Button" parent="Container/VBoxContainer"]
 layout_mode = 2
 text = "Credits"
 
-[node name="Button2" type="Button" parent="VBoxContainer"]
+[node name="Exit" type="Button" parent="Container/VBoxContainer"]
 layout_mode = 2
 text = "Exit Game"
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 234.0
-offset_top = 166.0
-offset_right = 638.0
-offset_bottom = 227.0
+[node name="Label" type="Label" parent="Container"]
+layout_mode = 2
+offset_left = 341.0
+offset_top = 165.0
+offset_right = 604.0
+offset_bottom = 201.0
 text = "Cryptid Camping"
 label_settings = SubResource("LabelSettings_yy741")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Credits" parent="." instance=ExtResource("4_g6od3")]
+visible = false
+layout_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 105.0
+offset_top = -50.0
+offset_right = -91.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "WARNING!!
+
+This game contains graphic content, including depictions of gore and strong language, which may not be suitable for all audiences. Viewer discretion is advised."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="SlashScreen" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.333333
+anchor_top = -0.333333
+anchor_right = 1.33333
+anchor_bottom = 1.33333
+offset_left = 384.0
+offset_top = 216.0
+offset_right = 384.0
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.600241, 0.600241)
+texture = ExtResource("5_i0il2")
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../SlashScreen")
+libraries = {
+"": SubResource("AnimationLibrary_3lgue")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_4ve4j")
+volume_db = -8.954
+parameters/looping = true
+
+[connection signal="button_up" from="Container/VBoxContainer/Start" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="Container/VBoxContainer/Credits" to="." method="_on_credits_button_up"]
+[connection signal="button_up" from="Container/VBoxContainer/Exit" to="." method="_on_exit_button_up"]
+[connection signal="button_up" from="Credits/Button" to="." method="_on_back_button_up"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+
+[editable path="Credits"]
