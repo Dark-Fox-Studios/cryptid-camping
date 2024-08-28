@@ -174,7 +174,7 @@ tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.7),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 0), Color(0.984314, 0, 0, 1)]
@@ -243,6 +243,81 @@ _data = {
 "death": SubResource("Animation_8i8rd"),
 "sleep": SubResource("Animation_a4v0w"),
 "wake": SubResource("Animation_ytl6h")
+}
+
+[sub_resource type="Animation" id="Animation_j0c5y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.20067e-09, 8.9407e-08, -0.00795159)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.000331312, 6.8661e-14, -5.01164e-11)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.000331342, 4.02336e-14, -5.01288e-11)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.17334e-09, 0.545905, -0.00777039)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Taken Hostage - Villain:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_5ud3s"]
@@ -369,69 +444,6 @@ tracks/9/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_j0c5y"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(4.57781e-09, 0.0585157, 0.0303175)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.6671, -4.12039e-08, 1.18916e-07)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Camera3D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.6671, -4.12039e-08, 1.18916e-07)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Camera3D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-4.64221e-08, 0.487389, -0.307439)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CanvasLayer/ColorRect:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uyugv"]
 _data = {
 "RESET": SubResource("Animation_j0c5y"),
@@ -439,7 +451,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, -0.0140358)
 script = ExtResource("1_e456b")
 walk_speed = 2.0
 sprint_speed = 3.0
@@ -447,7 +459,6 @@ acceleration = 50.0
 
 [node name="Taken Hostage - Villain" parent="." instance=ExtResource("2_xghsk")]
 transform = Transform3D(-3, 0, -4.52987e-07, 0, 3, 0, 4.52987e-07, 0, -3, -0.162296, -1.43166, 1.5198)
-visible = false
 
 [node name="Skeleton3D" parent="Taken Hostage - Villain" index="0"]
 bones/0/position = Vector3(0.00643607, 0.569443, -0.00385706)
@@ -505,11 +516,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00178959)
 omni_range = 25.08
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, -9.34226e-08, -3.23706e-08, 9.34226e-08, 0.785619, 0.61871, -3.23706e-08, -0.61871, 0.785619, -4.64221e-08, 0.487389, -0.307439)
+transform = Transform3D(1, 5.01288e-11, 4.02336e-14, -5.01288e-11, 1, -0.000331342, -5.68434e-14, 0.000331342, 1, -1.17334e-09, 0.545905, -0.00777039)
 environment = ExtResource("2_3oflg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, -9.34226e-08, -3.23706e-08, 9.34226e-08, 0.785619, 0.61871, -3.23706e-08, -0.61871, 0.785619, 4.57781e-09, 0.0585157, 0.0303175)
+transform = Transform3D(1, 5.01164e-11, 6.86609e-14, -5.01164e-11, 1, -0.000331312, -8.52651e-14, 0.000331312, 1, -1.20067e-09, 8.9407e-08, -0.00795159)
 shape = SubResource("CapsuleShape3D_yxpbs")
 
 [node name="ChaseMusic" type="AudioStreamPlayer3D" parent="."]

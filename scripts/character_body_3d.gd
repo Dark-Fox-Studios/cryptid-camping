@@ -126,10 +126,6 @@ func _process(delta: float) -> void:
 		dialogue.text = ""
 		
 		
-
-		
-
-		
 	if Input.is_action_just_pressed("interact") and lantern_interact and lantern.visible:
 		lantern.queue_free()
 		player_arms.visible = true
@@ -176,7 +172,7 @@ func _physics_process(delta: float) -> void:
 func kill():
 	set_process_input(false)
 	death_animation.play("mixamo_com")
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(.5).timeout
 	death.play()
 	await get_tree().create_timer(1.7).timeout
 	effect_anim.play("death")
@@ -230,8 +226,6 @@ func _on_zone_1_body_entered(body: Node3D) -> void:
 		print("Zone 1 passed, increased whispers")
 		zone_1.queue_free()
 
-
-
 func _on_zone_2_body_entered(body: Node3D) -> void:
 	if body.name == "Player":
 		var current_w_db = AudioServer.get_bus_volume_db(whisper_bus_index)
@@ -240,7 +234,6 @@ func _on_zone_2_body_entered(body: Node3D) -> void:
 		AudioServer.set_bus_volume_db(ambient_bus_index, current_a_db + 5.0)
 		print("Zone 2 passed, increased whispers")
 		zone_2.queue_free()
-
 
 
 func _on_zone_3_body_entered(body: Node3D) -> void:
@@ -254,9 +247,8 @@ func _on_zone_3_body_entered(body: Node3D) -> void:
 		await get_tree().create_timer(1).timeout
 		chase_music.play()
 		await get_tree().create_timer(10).timeout
-		kill()
-		await get_tree().create_timer(1).timeout
-		chase_music.stop()
+		final_death()
+		
 		
 # handle lantern pickup
 func _on_lantern_body_entered(body: Node3D) -> void:

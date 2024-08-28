@@ -133,3 +133,7 @@ func _on_scratched_van_body_entered(body):
 		scratched_van.queue_free()
 		section += 1
 		dead_boundary.queue_free()
+
+
+func _on_cutscene_animation_finished(anim_name: StringName) -> void:
+	pass # Replace with function body.

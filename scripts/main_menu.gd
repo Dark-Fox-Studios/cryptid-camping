@@ -12,6 +12,8 @@ extends Control
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if Global.credits_from_final_death:
+		color_rect.visible = false
+		slash_screen.visible = false
 		_on_credits_button_up()
 		music.play()
 	else:
