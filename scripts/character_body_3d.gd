@@ -68,18 +68,33 @@ var camp_setup_trigger = false
 @onready var lantern_global = $"../Lantern"
 @onready var lantern_pos = $Lantern
 
+@onready var pause_menu: Control = $"../Control"
 
+
+var paused = false
+
+var sprinting = false
 var whisper_bus_index: int
 var ambient_bus_index: int
+
+var main_bus = AudioServer.get_bus_index("Master")
+
+var lantern_picked = false
 
 var cutscene_done = false
 
 var step_toggle = false
 
 var elapsed_time := 0.0
-var target_time = 0.7
+var target_time: float
+var walk_time = 0.7
+var sprint_time = 0.55
+var slept = false
 
 func _ready() -> void:
+	AudioServer.set_bus_volume_db(whisper_bus_index, -10.5)
+	whispers.stop()
+	chase_music.stop()
 	player_arms.visible = false
 	player_arms.position = Vector3(0, 0.356, 0)
 	set_process_input(false)
@@ -91,18 +106,18 @@ func _ready() -> void:
 	capture_mouse()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and cutscene_done:
+	if event is InputEventMouseMotion and cutscene_done and not paused:
 		look_dir = event.relative * 0.001
 		if mouse_captured: _rotate_camera()
 	
-	#if Input.is_action_just_pressed("exit"): get_tree().quit()
+	if Input.is_action_just_pressed("exit"): 
+		release_mouse()
+
 
 func _process(delta: float) -> void:
 	if cutscene_done:
-		if Input.is_action_pressed("ui_accept"):
-			final_death()
-		
 		if Input.is_action_just_released("sprint"):
+			sprinting = false
 			speed = walk_speed
 		
 		stamina += delta * 0.5 if stamina < 3 else 0
@@ -112,14 +127,19 @@ func _process(delta: float) -> void:
 			await get_tree().create_timer(3).timeout
 		else:
 			if Input.is_action_pressed("sprint"):
+				sprinting = true
 				speed = sprint_speed
 				stamina -= delta 
+		
+		target_time = sprint_time if sprinting else walk_time
 			
-		if not whispers_started and Main.whispers:
+		if Main.whispers and not whispers_started:
 			whispers.play()
 			whispers_started = true
+		
 			
 		if camp_setup_trigger and Input.is_action_just_pressed("interact"):
+			camp_setup_trigger = false
 			camp_setup.queue_free()
 			effect_anim.play("camp_setup")
 			await get_tree().create_timer(2).timeout
@@ -133,17 +153,23 @@ func _process(delta: float) -> void:
 			await get_tree().create_timer(2).timeout
 			dialogue.text = ""
 			
+		
 			
 		if Input.is_action_just_pressed("interact") and lantern_interact and lantern.visible:
 			lantern.queue_free()
+			Main.lantern_interactable = false
+			lantern_picked = true
 			lantern_wall.queue_free()
 			player_arms.visible = true
+			
+		
 		
 		if Input.is_action_just_pressed("interact") and Main.sleepable and sleep:
 			set_process_input(false)
 			color_rect.visible = true
 			Main.section += 1
 			Main.sleepable = false
+			slept = true
 			label.text = ""
 			effect_anim.play("sleep")
 			sun.light_energy = 0.1
@@ -180,6 +206,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 func kill():
+	Main.whispers = false
 	set_process_input(false)
 	death_animation.play("mixamo_com")
 	await get_tree().create_timer(1).timeout
@@ -188,6 +215,7 @@ func kill():
 	effect_anim.play("death")
 
 func final_death():
+	Main.whispers = false
 	lantern_global.global_position = lantern_pos.global_position
 	lantern_global.global_rotation = lantern_pos.global_rotation
 	lantern_global.visible = true
@@ -224,11 +252,11 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		label.text = "Sleep"
 		sleep = true
 		print("Wants to sleep")
-	pass # Replace with function body.
 
 # tent move away
 func _on_area_3d_body_exited(body):
 	if body.name == "Player":
+		sleep = false
 		label.text = ""
 
 
@@ -271,6 +299,7 @@ func _on_lantern_body_entered(body: Node3D) -> void:
 		print("wants to pick up lantern")
 		lantern_interact = true
 		label.text = "Pickup"
+		
 
 
 
@@ -323,14 +352,21 @@ func _on_final_death_animation_finished(anim_name):
 
 func _on_effect_anim_animation_finished(anim_name):
 	if anim_name == "death":
+		Global.main_from_death = true
 		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 
 func _on_need_lantern_body_entered(body):
 	if body.name == "Player":
-		dialogue.text = "It's dark, I should really grab my lantern..."
+		print("player entered")
+		dialogue.text = "" if not slept else "It's dark, I should really grab my lantern..."
 
 
 func _on_need_lantern_body_exited(body):
 	if body.name == "Player":
 		dialogue.text = ""
+		
+
+
+func _on_resume_button_up() -> void:
+	capture_mouse()

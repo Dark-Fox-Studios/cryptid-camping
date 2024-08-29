@@ -224,6 +224,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="SlashScreen" type="TextureRect" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1

@@ -1,17 +1,22 @@
 # Blender 4.2.1 LTS MTL File: 'Car4.blend'
 # www.blender.org
 
+newmtl CC_drag_&_smear
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd CC_drag_&_smear.png
+map_d CC_drag_&_smear.png
+
 newmtl car4_mat
+Ns 11.111113
+Ka 1.000000 1.000000 1.000000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 1
-Pr 0.894591
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
 map_Kd car4.png

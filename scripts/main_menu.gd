@@ -16,8 +16,12 @@ func _ready():
 		slash_screen.visible = false
 		_on_credits_button_up()
 		music.play()
-	elif not Global.main_from_death and not Global.credits_from_final_death:
+	elif not Global.main_from_death and not Global.credits_from_final_death and not Global.main_from_pause:
 		animation_player.play("splash")
+	elif Global.main_from_pause:
+		slash_screen.visible = false
+		Global.main_from_pause = false
+		music.play()
 	else:
 		Global.main_from_death = false
 		music.play()
