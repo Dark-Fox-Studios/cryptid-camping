@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bg84k0030efj8"]
+
+[ext_resource type="SystemFont" uid="uid://bwf1cqn53d52q" path="res://font.tres" id="1_5gu42"]
+
+[resource]
+font = ExtResource("1_5gu42")
+font_size = 40
+font_color = Color(0, 0, 0, 0)

@@ -64,10 +64,15 @@ var camp_setup_trigger = false
 @onready var sun: DirectionalLight3D = $"../DirectionalLight3D"
 @onready var run: AudioStreamPlayer3D = $Run
 @onready var chase_music: AudioStreamPlayer3D = $ChaseMusic
+@onready var lantern_wall = $"../Boundaries/CampBoundaries/LanternWall"
+@onready var lantern_global = $"../Lantern"
+@onready var lantern_pos = $Lantern
 
 
 var whisper_bus_index: int
 var ambient_bus_index: int
+
+var cutscene_done = false
 
 var step_toggle = false
 
@@ -75,6 +80,8 @@ var elapsed_time := 0.0
 var target_time = 0.7
 
 func _ready() -> void:
+	player_arms.visible = false
+	player_arms.position = Vector3(0, 0.356, 0)
 	set_process_input(false)
 	whisper_bus_index = AudioServer.get_bus_index(whispers.bus)
 	ambient_bus_index = AudioServer.get_bus_index(ambient_noise.bus)
@@ -84,101 +91,109 @@ func _ready() -> void:
 	capture_mouse()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and cutscene_done:
 		look_dir = event.relative * 0.001
 		if mouse_captured: _rotate_camera()
 	
 	#if Input.is_action_just_pressed("exit"): get_tree().quit()
 
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("ui_accept"):
-		animation_player.play("final_death")
-	
-	if Input.is_action_just_released("sprint"):
-		speed = walk_speed
-	
-	stamina += delta * 0.5 if stamina < 3 else 0
-	
-	if stamina <= 0:
-		speed = walk_speed
-		await get_tree().create_timer(3).timeout
-	else:
-		if Input.is_action_pressed("sprint"):
-			speed = sprint_speed
-			stamina -= delta 
+	if cutscene_done:
+		if Input.is_action_pressed("ui_accept"):
+			final_death()
 		
-	if not whispers_started and Main.whispers:
-		whispers.play()
-		whispers_started = true
+		if Input.is_action_just_released("sprint"):
+			speed = walk_speed
 		
-	if camp_setup_trigger and Input.is_action_just_pressed("interact"):
-		camp_setup.queue_free()
-		effect_anim.play("camp_setup")
-		await get_tree().create_timer(2).timeout
-		label.text = ""
-		for child in campsite.get_children():
-			child.visible = true
-		await get_tree().create_timer(2).timeout
-		camp_setup_trigger = false
-		Main.section += 1
-		dialogue.text = "Time for bed, I'm tired..."
-		await get_tree().create_timer(2).timeout
-		dialogue.text = ""
+		stamina += delta * 0.5 if stamina < 3 else 0
 		
+		if stamina <= 0:
+			speed = walk_speed
+			await get_tree().create_timer(3).timeout
+		else:
+			if Input.is_action_pressed("sprint"):
+				speed = sprint_speed
+				stamina -= delta 
+			
+		if not whispers_started and Main.whispers:
+			whispers.play()
+			whispers_started = true
+			
+		if camp_setup_trigger and Input.is_action_just_pressed("interact"):
+			camp_setup.queue_free()
+			effect_anim.play("camp_setup")
+			await get_tree().create_timer(2).timeout
+			label.text = ""
+			for child in campsite.get_children():
+				child.visible = true
+			await get_tree().create_timer(2).timeout
+			camp_setup_trigger = false
+			Main.section += 1
+			dialogue.text = "Time for bed, I'm tired..."
+			await get_tree().create_timer(2).timeout
+			dialogue.text = ""
+			
+			
+		if Input.is_action_just_pressed("interact") and lantern_interact and lantern.visible:
+			lantern.queue_free()
+			lantern_wall.queue_free()
+			player_arms.visible = true
 		
-	if Input.is_action_just_pressed("interact") and lantern_interact and lantern.visible:
-		lantern.queue_free()
-		player_arms.visible = true
-	
-	if Input.is_action_just_pressed("interact") and Main.sleepable and sleep:
-		set_process_input(false)
-		color_rect.visible = true
-		Main.section += 1
-		Main.sleepable = false
-		label.text = ""
-		effect_anim.play("sleep")
-		sun.light_energy = 0.1
-		await get_tree().create_timer(5).timeout
-		dead_audio.play()
-		await get_tree().create_timer(2).timeout
-		effect_anim.play("wake")
-		await get_tree().create_timer(0.2).timeout
-		color_rect.visible = false
-		dialogue.text = "What the hell?"
-		set_process_input(true)
-		await get_tree().create_timer(2).timeout
-		dialogue.text = ""
-		await get_tree().create_timer(0.2).timeout
-		dialogue.text = "* Go investigate the source of the scream. You should probably grab a lantern *"
-		await get_tree().create_timer(4).timeout
-		dialogue.text = ""
+		if Input.is_action_just_pressed("interact") and Main.sleepable and sleep:
+			set_process_input(false)
+			color_rect.visible = true
+			Main.section += 1
+			Main.sleepable = false
+			label.text = ""
+			effect_anim.play("sleep")
+			sun.light_energy = 0.1
+			await get_tree().create_timer(5).timeout
+			dead_audio.play()
+			await get_tree().create_timer(2).timeout
+			effect_anim.play("wake")
+			await get_tree().create_timer(0.2).timeout
+			color_rect.visible = false
+			dialogue.text = "What the hell?"
+			set_process_input(true)
+			await get_tree().create_timer(2).timeout
+			dialogue.text = ""
+			await get_tree().create_timer(0.2).timeout
+			dialogue.text = "* Go investigate the source of the scream. You should probably grab a lantern *"
+			await get_tree().create_timer(4).timeout
+			dialogue.text = ""
 
 		
 func _physics_process(delta: float) -> void:
-	velocity = _walk(delta) + _gravity(delta) 
-	if velocity != Vector3.ZERO:
-		
-		elapsed_time += delta
-		if elapsed_time >= target_time:
-			step_toggle = !step_toggle
-			if step_toggle:
-				footstep1.play()
-			else:
-				footstep2.play()
-			elapsed_time = 0
-		
-	move_and_slide()
+	if cutscene_done:
+		velocity = _walk(delta) + _gravity(delta) 
+		if velocity != Vector3.ZERO:
+			
+			elapsed_time += delta
+			if elapsed_time >= target_time:
+				step_toggle = !step_toggle
+				if step_toggle:
+					footstep1.play()
+				else:
+					footstep2.play()
+				elapsed_time = 0
+			
+		move_and_slide()
 
 func kill():
 	set_process_input(false)
 	death_animation.play("mixamo_com")
-	await get_tree().create_timer(.5).timeout
+	await get_tree().create_timer(1).timeout
 	death.play()
-	await get_tree().create_timer(1.7).timeout
+	await get_tree().create_timer(1.2).timeout
 	effect_anim.play("death")
 
 func final_death():
+	lantern_global.global_position = lantern_pos.global_position
+	lantern_global.global_rotation = lantern_pos.global_rotation
+	lantern_global.visible = true
+	lantern_global.gravity_scale = 1
 	animation_player.play("final_death")
+	
 
 func capture_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -266,6 +281,7 @@ func _on_lantern_body_exited(body: Node3D) -> void:
 
 
 func _on_cutscene_animation_finished(anim_name):
+	cutscene_done = true
 	set_process_input(true)
 	dialogue.text = "I really should set up camp... it's late"
 	await get_tree().create_timer(3).timeout
@@ -290,7 +306,7 @@ func _on_camp_setup_body_entered(body: Node3D) -> void:
 
 
 func _on_camp_setup_body_exited(body: Node3D) -> void:
-	label.text = "Setup camp"
+	label.text = ""
 
 
 func _on_death_boundary_body_entered(body: Node3D) -> void:
@@ -303,3 +319,18 @@ func _on_death_boundary_body_entered(body: Node3D) -> void:
 func _on_final_death_animation_finished(anim_name):
 	Global.credits_from_final_death = true
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+
+func _on_effect_anim_animation_finished(anim_name):
+	if anim_name == "death":
+		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+
+func _on_need_lantern_body_entered(body):
+	if body.name == "Player":
+		dialogue.text = "It's dark, I should really grab my lantern..."
+
+
+func _on_need_lantern_body_exited(body):
+	if body.name == "Player":
+		dialogue.text = ""

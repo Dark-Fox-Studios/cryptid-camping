@@ -16,8 +16,11 @@ func _ready():
 		slash_screen.visible = false
 		_on_credits_button_up()
 		music.play()
-	else:
+	elif not Global.main_from_death and not Global.credits_from_final_death:
 		animation_player.play("splash")
+	else:
+		Global.main_from_death = false
+		music.play()
 
 func _on_start_button_up():
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
