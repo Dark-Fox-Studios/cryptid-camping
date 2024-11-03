@@ -51,8 +51,7 @@ func _ready() -> void:
 	player.visible = false
 	car_scratched.visible = false
 	deadman.visible = false
-	camp_boundary.visible = true
-	dead_boundary.visible = false
+
 	cut_scene_cam.current = true
 	ambient_noise.playing = true
 
